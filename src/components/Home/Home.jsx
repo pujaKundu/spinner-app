@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Form, UserForm, UserInformation } from "../index";
+import React, { useEffect, useState } from "react";
+import { Form, UserForm, UserInformation ,Wheel} from "../index";
 import {
   useSpinnerState,
   useUserState,
   useUserInformation,
 } from "../../utils/statesUtils";
 import "./Home.css";
+import SpinWheel from "../SpinWheel/SpinWheel";
 
 const Home = () => {
   const { isSpinnerOpen, setIsSpinnerOpen } = useSpinnerState();
@@ -32,13 +33,12 @@ const Home = () => {
     const newUserInfo ={
         name,email,discount,discountType,selectedDiscount,color
     }
-    console.log(newUserInfo)
-    addUserInformation(newUserInfo)
+
+      addUserInformation(newUserInfo)
+    
   }
 
-  console.log('user info', userInformation)
-
-  console.log(`color: ${color}, discount: ${discount}, type: ${discountType} name:${name} email:${email}`)
+  const [result, setResult] = useState(null);
 
   return (
     <div className="container">
@@ -51,7 +51,26 @@ const Home = () => {
       />
       <UserInformation userInformation={userInformation}/>
       <div className="spinner-container">
-        {isSpinnerOpen && <UserForm setIsSpinnerOpen={setIsSpinnerOpen} setName={setName} setEmail={setEmail} handleAddUser={handleAddUser} />}
+        {isSpinnerOpen && <UserForm setIsSpinnerOpen={setIsSpinnerOpen} setName={setName} setEmail={setEmail} handleAddUser={handleAddUser} userInformation={userInformation} result={result}
+        setResult={setResult} selectedDiscount={selectedDiscount} setSelectedDiscount={setSelectedDiscount} addUserInformation={addUserInformation}
+        />}
+      </div>
+      <div id="wheelCircle">
+        {/* <SpinWheel
+          segments={segments}
+          segColors={segColors}
+          winningSegment=""
+          onFinished={(winner) => onFinished(winner)}
+          primaryColor="black"
+          primaryColoraround="#ffffffb4"
+          contrastColor="white"
+          buttonText="Spin"
+          isOnlyOnce={false}
+          size={190}
+          upDuration={50}
+          downDuration={2000}
+          userInformation={userInformation}
+        /> */}
       </div>
     </div>
   );

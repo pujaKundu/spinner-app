@@ -2,19 +2,29 @@ import React from 'react'
 import './UserInformation.css'
 
 const UserInformation = ({userInformation}) => {
-  const content = userInformation.map((info)=><div className=''>
-    <div>{info?.email}</div>
-    <div>{info?.name}</div>
-    <div>{info?.discount}</div>
-  </div>)
+ 
   return (
     <>
-    <div className='information-container'>
-      <div className='information'>Email List</div>
-      <div className='information'>Name</div>
-      <div className='information'>Discount</div>
-    </div>
-    {content}
+    <table className='information-container'>
+      <thead>
+      <tr>
+      <th className='information'>Email List</th>
+      <th className='information'>Name</th>
+      <th className='information'>Discount</th>
+      </tr>
+      </thead>
+      
+      <tbody>
+          {userInformation.map((info, index) => (
+            <tr key={index} className='row'>
+              <td className='cell'>{info?.email}</td>
+              <td className='cell'>{info?.name}</td>
+              <td className='cell'>{info?.selectedDiscount}{info?.discountType}</td>
+            </tr>
+          ))}
+        </tbody>
+      
+    </table>
     </>
   )
 }

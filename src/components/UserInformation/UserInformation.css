@@ -1,10 +1,14 @@
 @import '../../styles/variables.css';
 
 .information-container{
-    display: grid;
-    grid-template-columns: 300px 100px 100px;
-    background-color: azure;
+    width: 600px;
 }
 .information{
-    border: 1px solid var(--lightgray-color);
+    border: 1px solid var(--gray-color);
+}
+
+.cell{
+    padding: 10px;
+    border: 1px solid var(--gray-color) ;
+    text-align: left;
 }
