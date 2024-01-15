@@ -1,0 +1,32 @@
+@import "../../styles/variables.css";
+
+.spinner-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.spinner-form> input, .spinner-form>select{
+    margin:5px;
+}
+.spinner-inputs{
+    display: flex;
+}
+
+.input,.select{
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid var(--gray-color);
+    border-radius: 5px
+}
+.color-picker{
+    height: 40px;
+    border: 1px solid var(--gray-color);
+    border-radius: 5px;
+}
+
+.spin-btn{
+    background-color: var(--green-color);
+    width: 100px;
+    margin-top: 10px;
+    color: var(--lightgray-color);
+}

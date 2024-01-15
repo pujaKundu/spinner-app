@@ -1,0 +1,10 @@
+@import '../../styles/variables.css';
+
+.information-container{
+    display: grid;
+    grid-template-columns: 300px 100px 100px;
+    background-color: azure;
+}
+.information{
+    border: 1px solid var(--lightgray-color);
+}

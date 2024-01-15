@@ -1,0 +1,45 @@
+@import '../../styles/variables.css';
+
+.form-container{
+    background-color: var(--blue-color);
+    border-radius: 10px;
+    position: absolute;
+    height: 100vh;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    margin: 25px;
+}
+
+.form>input{
+    width: 250px;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.try-btn{
+    background-color: var(--lightgray-color);
+    color: var(--black-color);
+    box-shadow: 1px 1px 2px var(--shadow-color);
+    border: none;
+    margin: 10px;
+    width: 140px;
+}
+.try-btn:hover{
+    box-shadow: 2px 3px 10px var(--black-color);
+}
+
+.close{
+   position: absolute;
+   top: 5px;
+   right: 20px;
+   color: var(--lightgray-color);
+   cursor: pointer;
+}
+
+.close:hover{
+    color: var(--white-color)
+}
