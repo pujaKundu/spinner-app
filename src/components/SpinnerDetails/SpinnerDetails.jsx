@@ -1,7 +1,8 @@
 import React from 'react'
 import './SpinnerDetails.css'
 
-const SpinnerDetails = ({userInformation}) => {
+const SpinnerDetails = ({spinnerInformation}) => {
+
   return (
     <>
        <table className="spinner-information-container">
@@ -14,7 +15,7 @@ const SpinnerDetails = ({userInformation}) => {
         </thead>
 
         <tbody>
-          {userInformation?.map((info, index) => (
+          {spinnerInformation?.map((info, index) => (
             <tr key={index} className="row">
               <td className="spinner-cell">{info?.discount}</td>
               <td className="spinner-cell">{info?.discountType}</td>

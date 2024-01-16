@@ -13,7 +13,7 @@ const UserForm = ({
   setResult,
   selectedDiscount,
   setSelectedDiscount,
-  addUserInformation,onFinished
+  addUserInformation,onFinished,spinnerInformation
 }) => {
 
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -46,12 +46,12 @@ const UserForm = ({
         setSelectedDiscount={setSelectedDiscount}
         handleAddUser={handleAddUser}
         addUserInformation={addUserInformation}
-        onFinished={onFinished}spinDuration={5000}
+        onFinished={onFinished}spinnerInformation={spinnerInformation}
       />
 
       <form action="" className="form">
         <span className="close" onClick={() => setIsSpinnerOpen(false)}>
-          <IoMdClose />
+          <IoMdClose className="close-icon"/>
         </span>
         <input
           type="text"

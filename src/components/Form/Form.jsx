@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import "./Form.css";
 
-const Form = ({color,setColor,setDiscount,setDiscountType,setIsSpinnerOpen}) => {
 
-  const handleSpinnerOpen = (event) => {
-    event.preventDefault();
-    setIsSpinnerOpen(true);
-  };
+const Form = ({color,setColor,setDiscount,setDiscountType,handleAddSpinnerInfo}) => {
 
   return (
     <>
@@ -14,7 +10,7 @@ const Form = ({color,setColor,setDiscount,setDiscountType,setIsSpinnerOpen}) => 
         <div className="spinner-inputs">
           <input type="text" placeholder="Enter discount" required className="input" onChange={(event)=>setDiscount(event.target.value)} />
           <select name="" id="" className="select" onChange={(event)=>setDiscountType(event.target.value)} required>
-            <option value="percentage">%</option>
+            <option value="%">%</option>
             <option value="fixed">Fixed</option>
           </select>
           <input
@@ -26,7 +22,7 @@ const Form = ({color,setColor,setDiscount,setDiscountType,setIsSpinnerOpen}) => 
             onChange={(event)=>setColor(event.target.value)}
           />
         </div>
-        <button className="spin-btn" onClick={() => handleSpinnerOpen(event)}>
+        <button className="spin-btn" onClick={() => handleAddSpinnerInfo(event)}>
           Spin
         </button>
       </form>

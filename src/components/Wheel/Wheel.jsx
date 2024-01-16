@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Wheel.css";
 
-let discountType = "";
 
 const Wheel = ({
   userInformation,
@@ -10,7 +9,7 @@ const Wheel = ({
   selectedDiscount,
   setSelectedDiscount,
   handleAddUser,
-  spinDuration,
+  spinnerInformation
 }) => {
   const canvasRef = useRef(null);
   const [spinning, setSpinning] = useState(false);
@@ -40,9 +39,9 @@ const Wheel = ({
     ctx.fillStyle = "#ccc";
     ctx.fill();
 
-    userInformation.forEach((obj, index) => {
-      const startAngle = ((2 * Math.PI) / userInformation.length) * index+1;
-      const endAngle = startAngle + (2 * Math.PI) / userInformation.length;
+    spinnerInformation.forEach((obj, index) => {
+      const startAngle = ((2 * Math.PI) / spinnerInformation.length) * index+1;
+      const endAngle = startAngle + (2 * Math.PI) / spinnerInformation.length;
       ctx.save();
       ctx.translate(centerX, centerY);
       ctx.rotate(((spinner.angle * Math.PI) / 180) * spinner.direction);
@@ -64,10 +63,7 @@ const Wheel = ({
         (radius / 2) * Math.sin(startAngle + (endAngle - startAngle) / 2);
       ctx.fillText(`${obj?.discount} ${obj?.discountType}`, textX, textY);
       ctx.restore();
-
-      // draw added slices
       
-
       // // Draw outer wheel circle
       const outerCircleRadius = Math.min(radius + 5, canvasSize / 2 - 6); // Adjust the size of the outer circle
       ctx.beginPath();
@@ -91,19 +87,19 @@ const Wheel = ({
       // draw needle
       if (selectedDiscount !== null) {
        
-        const selectedObjectIndex = userInformation.findIndex(
+        const selectedObjectIndex = spinnerInformation.findIndex(
           (obj) => obj.discount == selectedDiscount
         );
 
         const sliceStartAngle =
-          ((2 * Math.PI) / userInformation.length) * selectedObjectIndex;
+          ((2 * Math.PI) / spinnerInformation.length) * selectedObjectIndex;
 
         const needleAngle =
           sliceStartAngle +
           ((spinner.angle * Math.PI) / 180) * spinner.direction;
 
         // Draw the triangular needle
-        const needleLength = radius * 0.2;
+        const needleLength = radius * 0.25;
 
         ctx.save();
         ctx.translate(centerX, centerY);
@@ -111,17 +107,15 @@ const Wheel = ({
 
         ctx.beginPath();
         ctx.moveTo(0, 0);
-        ctx.lineTo(8, -needleLength);
-        ctx.lineTo(-8, -needleLength);
+        ctx.lineTo(12, -needleLength);
+        ctx.lineTo(-12, -needleLength);
         ctx.closePath();
 
-        ctx.fillStyle = "blue";
+        ctx.fillStyle = "#ff6347";
         ctx.fill();
 
         ctx.restore();
       }
-
-      discountType = obj.discountType;
     });
   };
 
@@ -148,11 +142,11 @@ const Wheel = ({
     }
 
     // Calculate the starting angle based on the selected discount
-    const selectedObjectIndex = userInformation.findIndex(
+    const selectedObjectIndex = spinnerInformation.findIndex(
       (obj) => obj.discount == selectedDiscount
     );
     const startAngle =
-      ((2 * Math.PI) / userInformation.length) * selectedObjectIndex;
+      ((2 * Math.PI) / spinnerInformation.length) * selectedObjectIndex;
 
     // Calculate the rotation angle based on the elapsed time
     const rotationPercentage = elapsed / duration;
@@ -165,9 +159,9 @@ const Wheel = ({
 
   useEffect(() => {
     const selectedObjectIndex = Math.floor(
-      Math.random() * userInformation.length
+      Math.random() * spinnerInformation.length
     );
-    setSelectedDiscount(userInformation[selectedObjectIndex]?.discount);
+    setSelectedDiscount(spinnerInformation[selectedObjectIndex]?.discount);
   }, []);
   
 

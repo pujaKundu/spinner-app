@@ -14,9 +14,11 @@
 .spinner-btn{
     margin-left: 35px;
     position: absolute;
-    margin-top: 180px;
+    margin-top: 260px;
 }
-
+.spinner-btn:hover{
+    box-shadow: 2px 3px 10px var(--black-color);
+}
 .text{
     margin-left: 350px;
     position: absolute;

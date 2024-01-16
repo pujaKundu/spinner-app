@@ -7,6 +7,7 @@
     position: absolute;
     height: 100vh;
     display: flex;
+    align-items: center;
 }
 .form{
     display: flex;
@@ -22,17 +23,6 @@
     border-radius: 5px;
 }
 
-.try-btn{
-    background-color: var(--lightgray-color);
-    color: var(--black-color);
-    box-shadow: 1px 1px 2px var(--shadow-color);
-    border: none;
-    margin: 10px;
-    width: 140px;
-}
-.try-btn:hover{
-    box-shadow: 2px 3px 10px var(--black-color);
-}
 
 .close{
    position: absolute;
@@ -40,10 +30,15 @@
    right: 20px;
    color: var(--lightgray-color);
    cursor: pointer;
+
 }
 
 .close:hover{
     color: var(--white-color)
+}
+
+.close-icon{
+    font-size: 28px;
 }
 .error-message{
     margin-top: -10px;

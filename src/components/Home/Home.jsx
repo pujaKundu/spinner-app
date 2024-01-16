@@ -6,18 +6,13 @@ import {
   useUserInformation,
 } from "../../utils/statesUtils";
 import "./Home.css";
-import SpinWheel from "../SpinWheel/SpinWheel";
+import {useSpinnerDetailState,useSpinnerInformation} from '../../utils/statesUtils'
 
 
 const Home = () => {
   const { isSpinnerOpen, setIsSpinnerOpen } = useSpinnerState();
   const {
-    discount,
-    setDiscount,
-    discountType,
-    setDiscountType,
-    color,
-    setColor,
+    
     name,
     setName,
     email,
@@ -27,6 +22,9 @@ const Home = () => {
   } = useUserState();
 
   const { userInformation, addUserInformation } = useUserInformation();
+
+  const {setDiscountType,setColor,setDiscount,color,discountType,discount}=useSpinnerDetailState();
+  const {spinnerInformation,addSpinnerInformation}=useSpinnerInformation()
 
   const handleAddUser = (event)=>{
     event.preventDefault();
@@ -38,11 +36,26 @@ const Home = () => {
       addUserInformation(newUserInfo)
 
       setName('');
+      setEmail("");
+      setSelectedDiscount("")
+    
+  }
+
+
+  const handleAddSpinnerInfo = (event)=>{
+    event.preventDefault();
+    
+    const newSpinnerInfo ={
+        discount,discountType,color
+    }
+
+      addSpinnerInformation(newSpinnerInfo)
+
+      setIsSpinnerOpen(true)
+
       setDiscount("")
       setDiscountType("")
-      setColor("#ffee99");
-      setEmail("");
-    
+      setColor("#ffee99"); 
   }
 
   return (
@@ -54,14 +67,15 @@ const Home = () => {
         setDiscount={setDiscount}
         setDiscountType={setDiscountType}
         setIsSpinnerOpen={setIsSpinnerOpen}
+        handleAddSpinnerInfo={handleAddSpinnerInfo}
       />
-      <SpinnerDetails userInformation={userInformation}/>
+      <SpinnerDetails spinnerInformation={spinnerInformation}/>
       </div>
       
       <UserInformation userInformation={userInformation} />
       <div className="spinner-container">
         {isSpinnerOpen && <UserForm setIsSpinnerOpen={setIsSpinnerOpen} setName={setName} setEmail={setEmail} handleAddUser={handleAddUser} userInformation={userInformation} 
-        selectedDiscount={selectedDiscount} setSelectedDiscount={setSelectedDiscount} addUserInformation={addUserInformation} 
+        selectedDiscount={selectedDiscount} setSelectedDiscount={setSelectedDiscount} addUserInformation={addUserInformation} spinnerInformation={spinnerInformation}
         />}
       </div>
       
