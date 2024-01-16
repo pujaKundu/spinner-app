@@ -15,11 +15,9 @@ const Wheel = ({
   const canvasRef = useRef(null);
   const [spinning, setSpinning] = useState(false);
 
-  const [wheelSlices, setWheelSlices] = useState([]);
+  // const [wheelSlices, setWheelSlices] = useState([]);
 
   const canvasSize = 400;
-
-  // console.log("selected discount", selectedDiscount);
 
   const spinner = {
     angle: 0,
@@ -29,7 +27,7 @@ const Wheel = ({
   useEffect(() => {
     const ctx = canvasRef.current.getContext("2d");
     drawSpinner(ctx);
-  }, [selectedDiscount,wheelSlices]);
+  }, [selectedDiscount]);
 
   const drawSpinner = (ctx) => {
     const centerX = canvasRef.current.width / 2;
@@ -43,7 +41,7 @@ const Wheel = ({
     ctx.fill();
 
     userInformation.forEach((obj, index) => {
-      const startAngle = ((2 * Math.PI) / userInformation.length) * index;
+      const startAngle = ((2 * Math.PI) / userInformation.length) * index+1;
       const endAngle = startAngle + (2 * Math.PI) / userInformation.length;
       ctx.save();
       ctx.translate(centerX, centerY);
@@ -66,6 +64,9 @@ const Wheel = ({
         (radius / 2) * Math.sin(startAngle + (endAngle - startAngle) / 2);
       ctx.fillText(`${obj?.discount} ${obj?.discountType}`, textX, textY);
       ctx.restore();
+
+      // draw added slices
+      
 
       // // Draw outer wheel circle
       const outerCircleRadius = Math.min(radius + 5, canvasSize / 2 - 6); // Adjust the size of the outer circle
@@ -168,25 +169,7 @@ const Wheel = ({
     );
     setSelectedDiscount(userInformation[selectedObjectIndex]?.discount);
   }, []);
-
-  // useEffect(() => {
-  //   if (selectedDiscount !== null) {
-  //     const selectedObject = userInformation.find(
-  //       (obj) => obj.discount == selectedDiscount
-  //     );
-  //     setWheelSlices((prevSlices) => [
-  //       ...prevSlices,
-  //       {
-  //         startAngle: ((2 * Math.PI) / userInformation.length) * selectedObject.index,
-  //         endAngle:
-  //           ((2 * Math.PI) / userInformation.length) * (selectedObject.index + 1),
-  //         color: selectedObject.color,
-  //         discount: selectedObject.discount,
-  //         discountType: selectedObject.discountType,
-  //       },
-  //     ]);
-  //   }
-  // }, [selectedDiscount]);
+  
 
   return (
     <div className="wheel-container">
