@@ -42,17 +42,25 @@ export const useSpinnerState = () => {
   };
 };
 
+
 export const useUserInformation = () => {
   const [userInformation, setUserInformation] = useState([
-   {
-    name:'tes',email:"tes@vfs.com",discount:'30',discountType:'fixed',selectedDiscount:"21",color:"#F0CF50"
-   },
-   {
-    name:'tes',email:"tes@vfs.com",discount:'30',discountType:'fixed',selectedDiscount:"21",color:"#EE4040"
-   },
-   {
-    name:'tes',email:"tes@vfs.com",discount:'30',discountType:'fixed',selectedDiscount:"21",color:"#815CD1"
-   },
+    {
+      name:'tes',email:"tes1@vfs.com",discount:'30',discountType:'fixed',selectedDiscount:"41",color:"#f5f763"
+     },
+     {
+      name:'tes',email:"tes2@vfs.com",discount:'20',discountType:'%',selectedDiscount:"21",color:"#f79452"
+     },
+     {
+      name:'tes',email:"tes3@vfs.com",discount:'50',discountType:'fixed',selectedDiscount:"53",color:"#48f0ea"
+     },
+     {
+      name:'tes',email:"tes4@vfs.com",discount:'10',discountType:'%',selectedDiscount:"30",color:"#F0C050"
+     },
+     {
+      name:'tes',email:"tes5@vfs.com",discount:'55',discountType:'%',selectedDiscount:"20",color:"#de77f2"
+     },
+   
   ]);
 
   useEffect(() => {
@@ -69,9 +77,6 @@ export const useUserInformation = () => {
     ]);
   };
 
-  useEffect(() => {
-    saveToLocalStorage("userInformation", userInformation);
-  }, [userInformation]);
 
   return {
     userInformation,

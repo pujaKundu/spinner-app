@@ -1,6 +1,9 @@
+.spinner-details-container{
+    margin-right: 50px;
+}
 .container{
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 .spinner-container{
     position: absolute;

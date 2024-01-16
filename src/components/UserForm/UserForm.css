@@ -2,7 +2,8 @@
 
 .form-container{
     background-color: var(--blue-color);
-    border-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     position: absolute;
     height: 100vh;
     display: flex;
@@ -43,4 +44,9 @@
 
 .close:hover{
     color: var(--white-color)
+}
+.error-message{
+    margin-top: -10px;
+    margin-left: -70px;
+    color:var(--error-color)
 }

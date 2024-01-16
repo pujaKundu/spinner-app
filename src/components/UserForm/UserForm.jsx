@@ -1,13 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import "./UserForm.css";
 import Wheel from "../Wheel/Wheel";
 
-const UserForm = ({ setIsSpinnerOpen, setName, setEmail, handleAddUser ,userInformation,result, setResult,selectedDiscount,setSelectedDiscount,addUserInformation}) => {
-  
+const UserForm = ({
+  setIsSpinnerOpen,
+  setName,
+  setEmail,
+  handleAddUser,
+  userInformation,
+  result,
+  setResult,
+  selectedDiscount,
+  setSelectedDiscount,
+  addUserInformation,onFinished
+}) => {
+
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidName, setIsValidName] = useState(true);
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = (event) => {
+    const email = event.target.value;
+    setEmail(email);
+    setIsValidEmail(validateEmail(email));
+  };
+
+  const handleNameChange = (event) => {
+    const name = event.target.value;
+    setName(name);
+    setIsValidName(name.trim() !== ""); // Check if the name is not empty
+  };
+
   return (
     <div className="form-container">
-      <Wheel userInformation={userInformation} result={result} setResult={setResult} selectedDiscount={selectedDiscount} setSelectedDiscount={setSelectedDiscount} handleAddUser={handleAddUser} addUserInformation={addUserInformation}/>
+      <Wheel
+        userInformation={userInformation}
+        result={result}
+        setResult={setResult}
+        selectedDiscount={selectedDiscount}
+        setSelectedDiscount={setSelectedDiscount}
+        handleAddUser={handleAddUser}
+        addUserInformation={addUserInformation}
+        onFinished={onFinished}spinDuration={5000}
+      />
 
       <form action="" className="form">
         <span className="close" onClick={() => setIsSpinnerOpen(false)}>
@@ -16,16 +56,24 @@ const UserForm = ({ setIsSpinnerOpen, setName, setEmail, handleAddUser ,userInfo
         <input
           type="text"
           placeholder="Enter your name"
-          onChange={(event) => setName(event.target.value)}
+          onChange={handleNameChange}
+          required
+          className={!isValidName ? "invalid" : ""}
         />
         <input
           type="email"
-          placeholder="Enter yout email"
-          onChange={(event) => setEmail(event.target.value)}
+          placeholder="Enter your email"
+          onChange={handleEmailChange}
+          required
+          className={!isValidEmail ? "invalid" : ""}
         />
-        {/* <button className="try-btn" onClick={handleAddUser}>
-          Try you luck
-        </button> */}
+         {!isValidName && (
+          <p className="error-message">Name cannot be empty.</p>
+        )}
+        {!isValidEmail && (
+          <p className="error-message">Please enter a valid email.</p>
+        )}
+        
       </form>
     </div>
   );

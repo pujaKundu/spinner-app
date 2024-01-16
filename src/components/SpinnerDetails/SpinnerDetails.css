@@ -1,0 +1,19 @@
+@import "../../styles/variables.css";
+
+.spinner-information-container{
+    width: 300px;
+    margin-top: 20px;
+}
+.information{
+    background-color: var(--black-color);
+    color: var(--lightgray-color);
+    padding: 5px;
+    border: none;
+}
+.spinner-cell{
+    border: none;
+}
+.color-cell{
+    width: 50px;
+    height: 40px;
+}

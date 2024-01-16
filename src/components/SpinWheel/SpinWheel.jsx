@@ -213,6 +213,7 @@ const SpinWheel = ({segments,
     isStarted &&
       ctx.fillText(currentSegment, centerX + 10, centerY + size + 50);
   };
+  
   const clear = () => {
     const ctx = canvasContext;
     ctx.clearRect(0, 0, 1000, 800);

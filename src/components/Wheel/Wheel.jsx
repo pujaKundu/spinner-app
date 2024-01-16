@@ -1,28 +1,40 @@
 import React, { useState, useRef, useEffect } from "react";
-import './Wheel.css'
+import "./Wheel.css";
 
+let discountType = "";
 
-const Wheel = ({ userInformation, result, setResult,selectedDiscount,setSelectedDiscount,handleAddUser,addUserInformation}) => {
+const Wheel = ({
+  userInformation,
+  result,
+  setResult,
+  selectedDiscount,
+  setSelectedDiscount,
+  handleAddUser,
+  spinDuration,
+}) => {
   const canvasRef = useRef(null);
   const [spinning, setSpinning] = useState(false);
 
-  console.log('selected discount',selectedDiscount)
+  const [wheelSlices, setWheelSlices] = useState([]);
+
+  const canvasSize = 400;
+
+  // console.log("selected discount", selectedDiscount);
 
   const spinner = {
     angle: 0,
-    direction: 1, // 1 for clockwise, -1 for anticlockwise
+    direction: 1,
   };
+
   useEffect(() => {
     const ctx = canvasRef.current.getContext("2d");
     drawSpinner(ctx);
-  }, [selectedDiscount]);
-
+  }, [selectedDiscount,wheelSlices]);
 
   const drawSpinner = (ctx) => {
     const centerX = canvasRef.current.width / 2;
     const centerY = canvasRef.current.height / 2;
     const radius = Math.min(centerX, centerY);
-
 
     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     ctx.beginPath();
@@ -33,7 +45,7 @@ const Wheel = ({ userInformation, result, setResult,selectedDiscount,setSelected
     userInformation.forEach((obj, index) => {
       const startAngle = ((2 * Math.PI) / userInformation.length) * index;
       const endAngle = startAngle + (2 * Math.PI) / userInformation.length;
-      ctx.save(); // Save the current state
+      ctx.save();
       ctx.translate(centerX, centerY);
       ctx.rotate(((spinner.angle * Math.PI) / 180) * spinner.direction);
       ctx.translate(-centerX, -centerY);
@@ -52,88 +64,154 @@ const Wheel = ({ userInformation, result, setResult,selectedDiscount,setSelected
       const textY =
         centerY +
         (radius / 2) * Math.sin(startAngle + (endAngle - startAngle) / 2);
-      ctx.fillText(`${obj?.discount?.toString()} ${obj?.discountType}`, textX, textY);
-      
-      ctx.restore(); 
-    });
+      ctx.fillText(`${obj?.discount} ${obj?.discountType}`, textX, textY);
+      ctx.restore();
 
-    if (selectedDiscount !== null) {
-      const arrowLength = 30;
-      const arrowAngle = ((spinner.angle * Math.PI) / 180) * spinner.direction;
-      const arrowX = centerX + radius * Math.cos(arrowAngle);
-      const arrowY = centerY + radius * Math.sin(arrowAngle);
+      // // Draw outer wheel circle
+      const outerCircleRadius = Math.min(radius + 5, canvasSize / 2 - 6); // Adjust the size of the outer circle
       ctx.beginPath();
-      ctx.moveTo(arrowX, arrowY);
-      ctx.lineTo(
-        arrowX + arrowLength * Math.cos(arrowAngle),
-        arrowY + arrowLength * Math.sin(arrowAngle)
-      );
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "#FF0000";
+      ctx.arc(centerX, centerY, outerCircleRadius, 0, 2 * Math.PI);
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = "#c7c7c7"; // Adjust the color of the outer circle
       ctx.stroke();
 
-// draw circle
-    // ctx.beginPath();
-    // ctx.arc(50, 0, 200, 0, Math.PI * 2, false);
-    // ctx.closePath();
-    // ctx.lineWidth = 20;
-    // ctx.strokeStyle =  "white";
-    // ctx.stroke();
+      // // Draw outer circle
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius - 150, 0, 2 * Math.PI);
+      ctx.fillStyle = "#ccc";
+      ctx.fill();
 
-    // Draw the needle
-    ctx.save();
-    ctx.translate(centerX, centerY);
-    ctx.rotate(arrowAngle);
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(0, -arrowLength);
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "#FF0000";
-    ctx.stroke();
-    ctx.restore();
-    }
+      //draw inner circle
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius * 0.2, 0, 2 * Math.PI);
+      ctx.fillStyle = "#fff";
+      ctx.fill();
+
+      // draw needle
+      if (selectedDiscount !== null) {
+       
+        const selectedObjectIndex = userInformation.findIndex(
+          (obj) => obj.discount == selectedDiscount
+        );
+
+        const sliceStartAngle =
+          ((2 * Math.PI) / userInformation.length) * selectedObjectIndex;
+
+        const needleAngle =
+          sliceStartAngle +
+          ((spinner.angle * Math.PI) / 180) * spinner.direction;
+
+        // Draw the triangular needle
+        const needleLength = radius * 0.2;
+
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(needleAngle);
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(8, -needleLength);
+        ctx.lineTo(-8, -needleLength);
+        ctx.closePath();
+
+        ctx.fillStyle = "blue";
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      discountType = obj.discountType;
+    });
   };
 
   const startSpin = () => {
     if (!spinning) {
       setSpinning(true);
-      spin();
+      const startTime = Date.now();
+      spin(startTime);
     }
   };
 
-  const spin = () => {
+  const spin = (startTime) => {
     const ctx = canvasRef.current.getContext("2d");
-    if (spinner.angle >= 360) {
+    const duration = 3000;
+    const currentTime = Date.now();
+    const elapsed = currentTime - startTime;
+
+    if (elapsed >= duration) {
       spinner.angle = 0;
-      spinner.direction = Math.random() < 0.5 ? 1 : -1; 
+      spinner.direction = 0;
       setSpinning(false);
-      const selectedObjectIndex = Math.floor(
-        Math.random() * userInformation.length
-      );
-      setSelectedDiscount(userInformation[selectedObjectIndex]?.discount);
-      
       drawSpinner(ctx);
-   
       return;
     }
-    spinner.angle += Math.floor(Math.random() * 30) + 10; 
+
+    // Calculate the starting angle based on the selected discount
+    const selectedObjectIndex = userInformation.findIndex(
+      (obj) => obj.discount == selectedDiscount
+    );
+    const startAngle =
+      ((2 * Math.PI) / userInformation.length) * selectedObjectIndex;
+
+    // Calculate the rotation angle based on the elapsed time
+    const rotationPercentage = elapsed / duration;
+    const maxRotation = 360 * 10;
+    spinner.angle = startAngle + rotationPercentage * maxRotation;
     drawSpinner(ctx);
-    requestAnimationFrame(spin);
+
+    requestAnimationFrame(() => spin(startTime));
   };
 
-  
+  useEffect(() => {
+    const selectedObjectIndex = Math.floor(
+      Math.random() * userInformation.length
+    );
+    setSelectedDiscount(userInformation[selectedObjectIndex]?.discount);
+  }, []);
+
+  // useEffect(() => {
+  //   if (selectedDiscount !== null) {
+  //     const selectedObject = userInformation.find(
+  //       (obj) => obj.discount == selectedDiscount
+  //     );
+  //     setWheelSlices((prevSlices) => [
+  //       ...prevSlices,
+  //       {
+  //         startAngle: ((2 * Math.PI) / userInformation.length) * selectedObject.index,
+  //         endAngle:
+  //           ((2 * Math.PI) / userInformation.length) * (selectedObject.index + 1),
+  //         color: selectedObject.color,
+  //         discount: selectedObject.discount,
+  //         discountType: selectedObject.discountType,
+  //       },
+  //     ]);
+  //   }
+  // }, [selectedDiscount]);
+
   return (
-    <div >
+    <div className="wheel-container">
       <canvas
         ref={canvasRef}
-        width={300}
-        height={300}
+        width={400}
+        height={400}
         className="wheel"
       ></canvas>
-      <button onClick={(event)=>{handleAddUser(event);startSpin();}} disabled={spinning} className="spinner-btn">
+      <button
+        onClick={(event) => {
+          handleAddUser(event);
+          startSpin();
+        }}
+        disabled={spinning}
+        className="spinner-btn"
+      >
         Try your luck
       </button>
-      {selectedDiscount !== null && <p className="text">Congratulations! <br />You have won {selectedDiscount} discount</p>}
+      {selectedDiscount !== null && (
+        <p className="text">
+          Congratulations! <br />
+          You have won {selectedDiscount} discount
+        </p>
+      )}
     </div>
   );
 };
