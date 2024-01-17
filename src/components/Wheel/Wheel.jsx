@@ -8,7 +8,7 @@ const Wheel = ({
   handleAddUser,
   spinnerInformation,setType,isValidName,
   isValidEmail,
-  userInformation,setName,setEmail
+  userInformation,setName,setEmail,setSpinDuration
 }) => {
   const canvasRef = useRef(null);
   const [spinning, setSpinning] = useState(false);
@@ -116,13 +116,6 @@ const Wheel = ({
     });
   };
 
-  // const startSpin = () => {
-  //   if (!spinning) {
-  //     setSpinning(true);
-  //     const startTime = Date.now();
-  //     spin(startTime);
-  //   }
-  // };
 
   const startSpin = () => {
     if (!spinning && isValidName && isValidEmail) {
@@ -139,11 +132,17 @@ const Wheel = ({
     }
   };
 
+
   const spin = (startTime) => {
+    const selectedObjectIndex = spinnerInformation.findIndex(
+      (obj) => obj.discount == selectedDiscount
+    );
     const ctx = canvasRef.current.getContext("2d");
-    const duration = 3000;
+    const duration = spinnerInformation[spinnerInformation.length-1]?.duration;//3000
     const currentTime = Date.now();
     const elapsed = currentTime - startTime;
+
+    console.log(duration)
 
     if (elapsed >= duration) {
       spinner.angle = 0;
@@ -154,9 +153,7 @@ const Wheel = ({
     }
 
     // Calculate the starting angle based on the selected discount
-    const selectedObjectIndex = spinnerInformation.findIndex(
-      (obj) => obj.discount == selectedDiscount
-    );
+    
     const startAngle =
       ((2 * Math.PI) / spinnerInformation.length) * selectedObjectIndex;
 
@@ -182,8 +179,8 @@ const Wheel = ({
     );
     setSelectedDiscount(spinnerInformation[selectedObjectIndex]?.discount);
     setType(spinnerInformation[selectedObjectIndex]?.discountType)
+    setSpinDuration(spinnerInformation[selectedObjectIndex]?.duration)
   }, []);
-  
 
   return (
     <div className="wheel-container">

@@ -1,4 +1,4 @@
-import React from "react";
+import {useState} from "react";
 import {
   Form,
   SpinnerDetails,
@@ -39,16 +39,19 @@ const Home = () => {
     color,
     discountType,
     discount,
+    duration,setDuration
   } = useSpinnerDetailState();
+
   const { spinnerInformation, addSpinnerInformation } = useSpinnerInformation();
+  const [spinDuration,setSpinDuration]=useState(3000)
 
   const handleAddUser = (event) => {
     event.preventDefault();
 
     const isEmailUsed = userInformation.some((user) => user.email === email);
 
+
     if (isEmailUsed) {
-      // alert('Email is already used. Each user can spin the wheel only once.');
       return;
     }
     const newUserInfo = {
@@ -56,7 +59,7 @@ const Home = () => {
       email,
       type,
       selectedDiscount,
-      
+
     };
 
     addUserInformation(newUserInfo);
@@ -74,6 +77,7 @@ const Home = () => {
       discount,
       discountType,
       color,
+      duration
     };
 
     addSpinnerInformation(newSpinnerInfo);
@@ -83,8 +87,8 @@ const Home = () => {
     setDiscount("");
     setDiscountType("");
     setColor("#ffee99");
+    setDuration(3000)
   };
-
 
   return (
     <div className="container">
@@ -96,13 +100,16 @@ const Home = () => {
           setDiscount={setDiscount}
           discountType={discountType}
           setDiscountType={setDiscountType}
+          duration={duration}
+          setDuration={setDuration}
           setIsSpinnerOpen={setIsSpinnerOpen}
           handleAddSpinnerInfo={handleAddSpinnerInfo}
+
         />
         <SpinnerDetails spinnerInformation={spinnerInformation} />
       </div>
 
-      <UserInformation userInformation={userInformation} />
+      <UserInformation userInformation={userInformation} spinDuration={spinDuration} />
       <div className="spinner-container">
         {isSpinnerOpen && (
           <UserForm
@@ -116,7 +123,7 @@ const Home = () => {
             spinnerInformation={spinnerInformation}
             setType={setType}
             userInformation={userInformation}
-
+            setSpinDuration={setSpinDuration}
           />
         )}
       </div>

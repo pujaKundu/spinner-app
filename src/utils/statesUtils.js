@@ -69,6 +69,7 @@ export const useSpinnerDetailState = () => {
   const [discount, setDiscount] = useState(0);
   const [discountType, setDiscountType] = useState("%");
   const [color, setColor] = useState("#ffee99");
+  const [duration,setDuration]=useState(3000)
 
   return {
     discount,
@@ -77,25 +78,26 @@ export const useSpinnerDetailState = () => {
     setDiscountType,
     color,
     setColor,
+    duration,setDuration
   };
 };
 
 export const useSpinnerInformation = () => {
   const [spinnerInformation, setSpinnerInformation] = useState([
     {
-      discount:'25',discountType:"fixed",color:"#f5f763"
+      discount:'25',discountType:"fixed",color:"#f5f763",duration:3000
      },
      {
-      discount:'15',discountType:"%",color:"#f79452"
+      discount:'15',discountType:"%",color:"#f79452",duration:5000
      },
      {
-      discount:'90',discountType:"fixed",color:"#48f0ea"
+      discount:'90',discountType:"fixed",color:"#48f0ea",duration:3000
      },
      {
-      discount:'44',discountType:"%",color:"#F0C050"
+      discount:'44',discountType:"%",color:"#F0C050",duration:5000
      },
      {
-      discount:'10',discountType:"%",color:"#de77f2"
+      discount:'10',discountType:"%",color:"#de77f2",duration:3000
      }
    
   ]);

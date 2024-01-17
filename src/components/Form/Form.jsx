@@ -7,8 +7,10 @@ const Form = ({
   discount,
   setDiscount,
   discountType,
+  duration,
+  setDuration,
   setDiscountType,
-  handleAddSpinnerInfo
+  handleAddSpinnerInfo,
 }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -35,6 +37,10 @@ const Form = ({
   const handleColorChange = (event) => {
     setColor(event.target.value);
     validateForm();
+  };
+
+  const handleDurationChange = (event) => {
+    setDuration(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -79,6 +85,13 @@ const Form = ({
             className="color-picker"
             required
             onChange={handleColorChange}
+          />
+          <input
+            type="number"
+            value={duration}
+            className="input"
+            onChange={handleDurationChange}
+            placeholder="Enter duration in miliseconds"
           />
         </div>
         {errorMessage && <p className="error-message">{errorMessage}</p>}

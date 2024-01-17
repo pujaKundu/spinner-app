@@ -11,7 +11,7 @@ const UserForm = ({
   handleAddUser,
   selectedDiscount,
   setSelectedDiscount,
-  spinnerInformation,setType,userInformation
+  spinnerInformation,setType,userInformation,setSpinDuration
 }) => {
 
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -45,6 +45,7 @@ const UserForm = ({
         isValidEmail={isValidEmail}userInformation={userInformation}
         setName={setName}
         setEmail={setEmail}
+        setSpinDuration={setSpinDuration}
       />
 
       <form action="" className="form">
