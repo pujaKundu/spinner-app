@@ -3,18 +3,13 @@ import "./Wheel.css";
 
 
 const Wheel = ({
-  userInformation,
-  result,
-  setResult,
   selectedDiscount,
   setSelectedDiscount,
   handleAddUser,
-  spinnerInformation
+  spinnerInformation,type,setType
 }) => {
   const canvasRef = useRef(null);
   const [spinning, setSpinning] = useState(false);
-
-  // const [wheelSlices, setWheelSlices] = useState([]);
 
   const canvasSize = 400;
 
@@ -162,6 +157,7 @@ const Wheel = ({
       Math.random() * spinnerInformation.length
     );
     setSelectedDiscount(spinnerInformation[selectedObjectIndex]?.discount);
+    setType(spinnerInformation[selectedObjectIndex]?.discountType)
   }, []);
   
 
@@ -186,7 +182,7 @@ const Wheel = ({
       {selectedDiscount !== null && (
         <p className="text">
           Congratulations! <br />
-          You have won {selectedDiscount} discount
+          You have won {selectedDiscount} {type} discount
         </p>
       )}
     </div>

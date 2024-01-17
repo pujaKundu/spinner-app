@@ -20,7 +20,7 @@ const UserInformation = ({ userInformation }) => {
               <td className="cell">{info?.name}</td>
               <td className="cell">
                 {`${info?.selectedDiscount} 
-                ${info?.discountType}`}
+                ${info?.type}`}
               </td>
               
             </tr>

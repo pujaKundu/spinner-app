@@ -11,7 +11,7 @@ const loadFromLocalStorage = (key) => {
 
 export const useUserState = () => {
   const [discount, setDiscount] = useState(null);
-  const [discountType, setDiscountType] = useState("%");
+  const [type, setType] = useState("%");
   const [color, setColor] = useState("#ffee99");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,8 +20,8 @@ export const useUserState = () => {
   return {
     discount,
     setDiscount,
-    discountType,
-    setDiscountType,
+    type,
+    setType,
     color,
     setColor,
     name,
@@ -45,22 +45,6 @@ export const useSpinnerState = () => {
 
 export const useUserInformation = () => {
   const [userInformation, setUserInformation] = useState([
-    {
-      name:'tes',email:"tes1@vfs.com",discount:'30',discountType:'fixed',selectedDiscount:"41",color:"#f5f763"
-     },
-     {
-      name:'tes',email:"tes2@vfs.com",discount:'20',discountType:'%',selectedDiscount:"21",color:"#f79452"
-     },
-     {
-      name:'tes',email:"tes3@vfs.com",discount:'50',discountType:'fixed',selectedDiscount:"53",color:"#48f0ea"
-     },
-     {
-      name:'tes',email:"tes4@vfs.com",discount:'10',discountType:'%',selectedDiscount:"30",color:"#F0C050"
-     },
-     {
-      name:'tes',email:"tes5@vfs.com",discount:'55',discountType:'%',selectedDiscount:"20",color:"#de77f2"
-     },
-   
   ]);
 
   useEffect(() => {
@@ -75,8 +59,11 @@ export const useUserInformation = () => {
       ...prevUserInformation,
       newUserInfo,
     ]);
+
+    saveToLocalStorage("userInformation", [...userInformation, newUserInfo]);
   };
 
+  
 
   return {
     userInformation,
@@ -126,21 +113,18 @@ export const useSpinnerInformation = () => {
     }
   }, []); 
 
-  useEffect(() => {
-    const loadedSpinnerInformation = loadFromLocalStorage("spinnerInformation");
-    if (loadedSpinnerInformation) {
-      setSpinnerInformation(loadedSpinnerInformation);
-    }
-  }, []); 
+ 
 
   const addSpinnerInformation = (newSpinnerInfo) => {
     setSpinnerInformation((prevSpinnerInformation) => [
       ...prevSpinnerInformation,
       newSpinnerInfo,
     ]);
+
+    saveToLocalStorage("spinnerInformation", [...spinnerInformation, newSpinnerInfo]);
   };
 
-
+  
   return {
     spinnerInformation,
     addSpinnerInformation

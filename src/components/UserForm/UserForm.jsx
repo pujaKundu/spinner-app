@@ -8,12 +8,9 @@ const UserForm = ({
   setName,
   setEmail,
   handleAddUser,
-  userInformation,
-  result,
-  setResult,
   selectedDiscount,
   setSelectedDiscount,
-  addUserInformation,onFinished,spinnerInformation
+  spinnerInformation,type,setType
 }) => {
 
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -39,14 +36,10 @@ const UserForm = ({
   return (
     <div className="form-container">
       <Wheel
-        userInformation={userInformation}
-        result={result}
-        setResult={setResult}
         selectedDiscount={selectedDiscount}
         setSelectedDiscount={setSelectedDiscount}
         handleAddUser={handleAddUser}
-        addUserInformation={addUserInformation}
-        onFinished={onFinished}spinnerInformation={spinnerInformation}
+        spinnerInformation={spinnerInformation}type={type}setType={setType}
       />
 
       <form action="" className="form">
