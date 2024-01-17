@@ -30,3 +30,6 @@
     margin-top: 10px;
     color: var(--lightgray-color);
 }
+.error-message{
+    margin-top: 10px;
+}

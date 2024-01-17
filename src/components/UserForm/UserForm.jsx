@@ -5,12 +5,13 @@ import Wheel from "../Wheel/Wheel";
 
 const UserForm = ({
   setIsSpinnerOpen,
+  email,
   setName,
   setEmail,
   handleAddUser,
   selectedDiscount,
   setSelectedDiscount,
-  spinnerInformation,type,setType
+  spinnerInformation,setType,userInformation
 }) => {
 
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -36,10 +37,14 @@ const UserForm = ({
   return (
     <div className="form-container">
       <Wheel
-        selectedDiscount={selectedDiscount}
+        selectedDiscount={selectedDiscount}email={email}
         setSelectedDiscount={setSelectedDiscount}
         handleAddUser={handleAddUser}
-        spinnerInformation={spinnerInformation}type={type}setType={setType}
+        spinnerInformation={spinnerInformation}setType={setType}
+        isValidName={isValidName}
+        isValidEmail={isValidEmail}userInformation={userInformation}
+        setName={setName}
+        setEmail={setEmail}
       />
 
       <form action="" className="form">
@@ -61,10 +66,10 @@ const UserForm = ({
           className={!isValidEmail ? "invalid" : ""}
         />
          {!isValidName && (
-          <p className="error-message">Name cannot be empty.</p>
+          <p className="error-message-name">Name cannot be empty.</p>
         )}
         {!isValidEmail && (
-          <p className="error-message">Please enter a valid email.</p>
+          <p className="error-message-email">Please enter a valid email.</p>
         )}
         
       </form>

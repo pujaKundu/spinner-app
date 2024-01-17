@@ -10,20 +10,14 @@ const loadFromLocalStorage = (key) => {
 };
 
 export const useUserState = () => {
-  const [discount, setDiscount] = useState(null);
   const [type, setType] = useState("%");
-  const [color, setColor] = useState("#ffee99");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [selectedDiscount, setSelectedDiscount] = useState("");
 
   return {
-    discount,
-    setDiscount,
     type,
     setType,
-    color,
-    setColor,
     name,
     setName,
     email,
@@ -72,7 +66,7 @@ export const useUserInformation = () => {
 };
 
 export const useSpinnerDetailState = () => {
-  const [discount, setDiscount] = useState(null);
+  const [discount, setDiscount] = useState(0);
   const [discountType, setDiscountType] = useState("%");
   const [color, setColor] = useState("#ffee99");
 

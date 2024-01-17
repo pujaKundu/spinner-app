@@ -3,10 +3,12 @@ import "./Wheel.css";
 
 
 const Wheel = ({
-  selectedDiscount,
+  selectedDiscount,email,
   setSelectedDiscount,
   handleAddUser,
-  spinnerInformation,type,setType
+  spinnerInformation,setType,isValidName,
+  isValidEmail,
+  userInformation,setName,setEmail
 }) => {
   const canvasRef = useRef(null);
   const [spinning, setSpinning] = useState(false);
@@ -114,11 +116,26 @@ const Wheel = ({
     });
   };
 
+  // const startSpin = () => {
+  //   if (!spinning) {
+  //     setSpinning(true);
+  //     const startTime = Date.now();
+  //     spin(startTime);
+  //   }
+  // };
+
   const startSpin = () => {
-    if (!spinning) {
-      setSpinning(true);
-      const startTime = Date.now();
-      spin(startTime);
+    if (!spinning && isValidName && isValidEmail) {
+      // Check if the email is already used
+      const isEmailUsed = userInformation.some((user) => user.email === email);
+  
+      if (isEmailUsed) {
+        alert('Email is already used. Each user can spin the wheel only once.');
+      } else {
+        setSpinning(true);
+        const startTime = Date.now();
+        spin(startTime);
+      }
     }
   };
 
@@ -153,6 +170,13 @@ const Wheel = ({
   };
 
   useEffect(() => {
+    if (!spinning) {
+      setName("");
+      setEmail("");
+    }
+  }, [spinning]);
+
+  useEffect(() => {
     const selectedObjectIndex = Math.floor(
       Math.random() * spinnerInformation.length
     );
@@ -169,22 +193,21 @@ const Wheel = ({
         height={400}
         className="wheel"
       ></canvas>
-      <button
+         <button
         onClick={(event) => {
-          handleAddUser(event);
-          startSpin();
+          if (isValidName && isValidEmail) {
+            handleAddUser(event);
+            startSpin();
+          } else {
+            
+          }
         }}
-        disabled={spinning}
+        disabled={!isValidName || !isValidEmail}
         className="spinner-btn"
       >
         Try your luck
       </button>
-      {selectedDiscount !== null && (
-        <p className="text">
-          Congratulations! <br />
-          You have won {selectedDiscount} {type} discount
-        </p>
-      )}
+     
     </div>
   );
 };

@@ -18,11 +18,11 @@
 .form>input{
     width: 250px;
     padding: 10px;
-    margin: 10px;
+    margin-top: 30px;
+    margin-left: 10px;
     border: none;
     border-radius: 5px;
 }
-
 
 .close{
    position: absolute;
@@ -40,8 +40,14 @@
 .close-icon{
     font-size: 28px;
 }
-.error-message{
-    margin-top: -10px;
+.error-message-name{
+    margin-top: -65px;
+    margin-left: -80px;
+    
+    color:var(--error-color)
+}
+.error-message-email{
+    margin-top: 20px;
     margin-left: -70px;
     color:var(--error-color)
 }

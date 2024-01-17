@@ -40,11 +40,9 @@ const Form = ({
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Only proceed if the form is valid
     if (validateForm()) {
       handleAddSpinnerInfo(event);
 
-      // Reset the form after submission
       setDiscount("");
       setDiscountType("");
       setColor("#ffee99");

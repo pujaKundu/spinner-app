@@ -14,7 +14,7 @@
 .spinner-btn{
     margin-left: 35px;
     position: absolute;
-    margin-top: 260px;
+    margin-top: 280px;
 }
 .spinner-btn:hover{
     box-shadow: 2px 3px 10px var(--black-color);

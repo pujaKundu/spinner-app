@@ -1,7 +1,28 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import "./UserInformation.css";
 
 const UserInformation = ({ userInformation }) => {
+  const [displayedDiscounts, setDisplayedDiscounts] = useState({});
+
+  useEffect(() => {
+    // Function to display the discount after 3 seconds
+    const displayDiscountAfterDelay = (index) => {
+      setTimeout(() => {
+        setDisplayedDiscounts((prevDiscounts) => ({
+          ...prevDiscounts,
+          [index]: true,
+        }));
+      }, 3000);
+    };
+
+    // Loop through userInformation to display discounts after delay
+    userInformation.forEach((info, index) => {
+      if (!displayedDiscounts[index]) {
+        displayDiscountAfterDelay(index);
+      }
+    });
+  }, [userInformation, displayedDiscounts]);
+
   return (
     <>
       <table className="information-container">
@@ -19,8 +40,15 @@ const UserInformation = ({ userInformation }) => {
               <td className="cell">{info?.email}</td>
               <td className="cell">{info?.name}</td>
               <td className="cell">
-                {`${info?.selectedDiscount} 
-                ${info?.type}`}
+                {/* {`${info?.selectedDiscount} 
+                ${info?.type}`} */}
+                
+
+                {displayedDiscounts[index] ? (
+                  `${info?.selectedDiscount} ${info?.type}`
+                ) : (
+                  "Loading..."
+                )}
               </td>
               
             </tr>

@@ -18,7 +18,6 @@ import {
 } from "../../utils/statesUtils";
 
 const Home = () => {
-  let sharedId = 1;
 
   const { isSpinnerOpen, setIsSpinnerOpen } = useSpinnerState();
   const {
@@ -46,8 +45,13 @@ const Home = () => {
   const handleAddUser = (event) => {
     event.preventDefault();
 
+    const isEmailUsed = userInformation.some((user) => user.email === email);
+
+    if (isEmailUsed) {
+      // alert('Email is already used. Each user can spin the wheel only once.');
+      return;
+    }
     const newUserInfo = {
-      id: sharedId++,
       name,
       email,
       type,
@@ -67,7 +71,6 @@ const Home = () => {
     event.preventDefault();
 
     const newSpinnerInfo = {
-      id: sharedId++,
       discount,
       discountType,
       color,
@@ -82,8 +85,6 @@ const Home = () => {
     setColor("#ffee99");
   };
 
-  console.log('spin',spinnerInformation);
-  console.log('user',userInformation)
 
   return (
     <div className="container">
@@ -106,14 +107,16 @@ const Home = () => {
         {isSpinnerOpen && (
           <UserForm
             setIsSpinnerOpen={setIsSpinnerOpen}
+            email={email}
             setName={setName}
             setEmail={setEmail}
             handleAddUser={handleAddUser}
             selectedDiscount={selectedDiscount}
             setSelectedDiscount={setSelectedDiscount}
             spinnerInformation={spinnerInformation}
-            type={type}
             setType={setType}
+            userInformation={userInformation}
+
           />
         )}
       </div>
