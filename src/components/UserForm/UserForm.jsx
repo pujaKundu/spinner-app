@@ -30,7 +30,7 @@ const UserForm = ({
   const handleNameChange = (event) => {
     const name = event.target.value;
     setName(name);
-    setIsValidName(name.trim() !== ""); // Check if the name is not empty
+    setIsValidName(name.trim() !== ""); 
   };
 
   return (

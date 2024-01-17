@@ -91,7 +91,9 @@ const Home = () => {
         <Form
           color={color}
           setColor={setColor}
+          discount={discount}
           setDiscount={setDiscount}
+          discountType={discountType}
           setDiscountType={setDiscountType}
           setIsSpinnerOpen={setIsSpinnerOpen}
           handleAddSpinnerInfo={handleAddSpinnerInfo}

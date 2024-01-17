@@ -1,15 +1,76 @@
 import React, { useState } from "react";
 import "./Form.css";
 
+const Form = ({
+  color,
+  setColor,
+  discount,
+  setDiscount,
+  discountType,
+  setDiscountType,
+  handleAddSpinnerInfo
+}) => {
+  const [errorMessage, setErrorMessage] = useState("");
 
-const Form = ({color,setColor,setDiscount,setDiscountType,handleAddSpinnerInfo}) => {
+  const validateForm = () => {
+    if (!discount || !discountType || !color) {
+      setErrorMessage("All fields must be filled");
+      return false;
+    } else {
+      setErrorMessage("");
+      return true;
+    }
+  };
+
+  const handleDiscountChange = (event) => {
+    setDiscount(event.target.value);
+    validateForm();
+  };
+
+  const handleDiscountTypeChange = (event) => {
+    setDiscountType(event.target.value);
+    validateForm();
+  };
+
+  const handleColorChange = (event) => {
+    setColor(event.target.value);
+    validateForm();
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // Only proceed if the form is valid
+    if (validateForm()) {
+      handleAddSpinnerInfo(event);
+
+      // Reset the form after submission
+      setDiscount("");
+      setDiscountType("");
+      setColor("#ffee99");
+    }
+  };
 
   return (
     <>
       <form action="" className="spinner-form">
         <div className="spinner-inputs">
-          <input type="text" placeholder="Enter discount" required className="input" onChange={(event)=>setDiscount(event.target.value)} />
-          <select name="" id="" className="select" onChange={(event)=>setDiscountType(event.target.value)} required>
+          <input
+            type="number"
+            placeholder="Enter discount"
+            required
+            className="input"
+            value={discount}
+            onChange={handleDiscountChange}
+          />
+          <select
+            name=""
+            id=""
+            className="select"
+            onChange={handleDiscountTypeChange}
+            required
+            value={discountType}
+          >
             <option value="%">%</option>
             <option value="fixed">Fixed</option>
           </select>
@@ -19,10 +80,11 @@ const Form = ({color,setColor,setDiscount,setDiscountType,handleAddSpinnerInfo})
             value={color}
             className="color-picker"
             required
-            onChange={(event)=>setColor(event.target.value)}
+            onChange={handleColorChange}
           />
         </div>
-        <button className="spin-btn" onClick={() => handleAddSpinnerInfo(event)}>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <button className="spin-btn" onClick={handleSubmit}>
           Spin
         </button>
       </form>
