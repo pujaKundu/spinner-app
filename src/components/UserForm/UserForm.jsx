@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { validateEmail } from "./helpers/validEmail";
 import { IoMdClose } from "react-icons/io";
 import "./UserForm.css";
 import Wheel from "../Wheel/Wheel";
@@ -16,11 +17,6 @@ const UserForm = ({
 
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [isValidName, setIsValidName] = useState(true);
-
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
 
   const handleEmailChange = (event) => {
     const email = event.target.value;
@@ -47,11 +43,11 @@ const UserForm = ({
         setEmail={setEmail}
         setSpinDuration={setSpinDuration}
       />
-
       <form action="" className="form">
         <span className="close" onClick={() => setIsSpinnerOpen(false)}>
           <IoMdClose className="close-icon"/>
         </span>
+        <h2>Try your luck</h2>
         <input
           type="text"
           placeholder="Enter your name"
@@ -72,7 +68,6 @@ const UserForm = ({
         {!isValidEmail && (
           <p className="error-message-email">Please enter a valid email.</p>
         )}
-        
       </form>
     </div>
   );

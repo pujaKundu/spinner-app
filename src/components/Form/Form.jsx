@@ -13,10 +13,14 @@ const Form = ({
   handleAddSpinnerInfo,
 }) => {
   const [errorMessage, setErrorMessage] = useState("");
+  const [isDisabled,setIsDisabled]=useState(false)
 
   const validateForm = () => {
     if (!discount || !discountType || !color) {
       setErrorMessage("All fields must be filled");
+      return false;
+    } else if (parseFloat(discount) < 0) {
+      setErrorMessage("Discount value cannot be negative");
       return false;
     } else {
       setErrorMessage("");
@@ -25,8 +29,12 @@ const Form = ({
   };
 
   const handleDiscountChange = (event) => {
-    setDiscount(event.target.value);
-    validateForm();
+    const newDiscount = event.target.value;
+
+    if (!isNaN(newDiscount) || newDiscount === "" || newDiscount === "-") {
+      setDiscount(newDiscount);
+      validateForm();
+    }
   };
 
   const handleDiscountTypeChange = (event) => {
@@ -53,12 +61,18 @@ const Form = ({
       setDiscountType("");
       setColor("#ffee99");
     }
+
+    if(parseFloat(discount) < 0){
+      setIsDisabled(true)
+    }
   };
 
   return (
     <>
       <form action="" className="spinner-form">
+      <h3>Customize Spinner</h3>
         <div className="spinner-inputs">
+          
           <input
             type="number"
             placeholder="Enter discount"
@@ -89,13 +103,13 @@ const Form = ({
           <input
             type="number"
             value={duration}
-            className="input"
+            className="input duration-input"
             onChange={handleDurationChange}
             placeholder="Enter duration in miliseconds"
           />
         </div>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <button className="spin-btn" onClick={handleSubmit}>
+        <button className={`${isDisabled ? "gray-btn":"spin-btn "}`} onClick={handleSubmit} disabled={isDisabled}>
           Spin
         </button>
       </form>

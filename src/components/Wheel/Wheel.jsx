@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { GiMagickTrick } from "react-icons/gi";
 import "./Wheel.css";
 
 
@@ -142,8 +143,6 @@ const Wheel = ({
     const currentTime = Date.now();
     const elapsed = currentTime - startTime;
 
-    console.log(duration)
-
     if (elapsed >= duration) {
       spinner.angle = 0;
       spinner.direction = 0;
@@ -151,13 +150,10 @@ const Wheel = ({
       drawSpinner(ctx);
       return;
     }
-
-    // Calculate the starting angle based on the selected discount
     
     const startAngle =
       ((2 * Math.PI) / spinnerInformation.length) * selectedObjectIndex;
 
-    // Calculate the rotation angle based on the elapsed time
     const rotationPercentage = elapsed / duration;
     const maxRotation = 360 * 10;
     spinner.angle = startAngle + rotationPercentage * maxRotation;
@@ -202,7 +198,7 @@ const Wheel = ({
         disabled={!isValidName || !isValidEmail}
         className="spinner-btn"
       >
-        Try your luck
+        Try your luck <GiMagickTrick/>
       </button>
      
     </div>

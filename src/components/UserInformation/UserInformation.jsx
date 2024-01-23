@@ -5,14 +5,13 @@ const UserInformation = ({ userInformation ,spinDuration}) => {
   const [displayedDiscounts, setDisplayedDiscounts] = useState({});
 
   useEffect(() => {
-   
     const displayDiscountAfterDelay = (index) => {
       setTimeout(() => {
         setDisplayedDiscounts((prevDiscounts) => ({
           ...prevDiscounts,
           [index]: true,
         }));
-      }, spinDuration+2000);
+      }, spinDuration+1000);
     };
 
     userInformation.forEach((info, index) => {

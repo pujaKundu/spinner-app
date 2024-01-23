@@ -1,5 +1,9 @@
 @import "../../styles/variables.css";
 
+h3{
+    text-align: left;
+}
+
 .spinner-form{
     display: flex;
     flex-direction: column;
@@ -18,10 +22,15 @@
     border: 1px solid var(--gray-color);
     border-radius: 5px
 }
+
+.duration-input{
+    width: 60px;
+}
 .color-picker{
     height: 40px;
     border: 1px solid var(--gray-color);
     border-radius: 5px;
+    margin-right: 10px;
 }
 
 .spin-btn{
@@ -30,6 +39,15 @@
     margin-top: 10px;
     color: var(--lightgray-color);
 }
+
+.gray-btn{
+    background-color: var(--gray-color);
+    width: 100px;
+    margin-top: 10px;
+    color: var(--lightgray-color);
+}
+
 .error-message{
     margin-top: 10px;
+    color: var(--red-color);
 }

@@ -3,7 +3,6 @@
 
 .wheel{
     margin-top: 20px;
-    /* margin-left: -150px; */
     margin-bottom: 20px;
     width: 320px;
     height: 320px;
@@ -14,10 +13,15 @@
 .spinner-btn{
     margin-left: 35px;
     position: absolute;
-    margin-top: 280px;
+    margin-top: 50%;
+    background-color: var(--teal-color);
+    color: var(--lightgray-color);
+    box-shadow: 2px 1px 5px var(--black-color);
+    border:none;
 }
 .spinner-btn:hover{
     box-shadow: 2px 3px 10px var(--black-color);
+    color: var(--white-color);
 }
 .text{
     margin-left: 350px;
